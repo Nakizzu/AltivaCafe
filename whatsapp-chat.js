@@ -12,7 +12,7 @@
 
 	/* ──── CONFIGURACIÓN ──── */
 	const WA_CONFIG = {
-		phone:   '573001234567',                          // Tu número con código de país (Colombia = 57)
+		phone:   '573214407131',                          // Tu número con código de país (Colombia = 57)
 		nombre:  'Altiva Cafe ☕',                           // Nombre que aparece en el chat
 		cargo:   'Atención al cliente',                   // Subtítulo del header
 		mensaje: '¡Hola! Quiero hacer un pedido 😊',      // Texto pre-escrito en WhatsApp
