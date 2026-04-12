@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Altiva Cafe - Menú</title>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="whatsapp-chat.css" />
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style>
+			/* ===== PAGE TITLE ===== */
+			.page-title {
+				background-color: #f5f0ea;
+				padding: 3rem 0;
+				border-bottom: 1px solid #e2d9cc;
+			}
+			.page-title h2 {
+				font-size: 2.8rem;
+				font-weight: 500;
+				text-align: center;
+				color: #2c2c2c;
+			}
+			.breadcrumb {
+				display: flex;
+				justify-content: center;
+				gap: 0.8rem;
+				margin-top: 0.8rem;
+				font-size: 1.3rem;
+				color: #777;
+			}
+			.breadcrumb a {
+				text-decoration: none;
+				color: var(--primary-color);
+			}
+			.breadcrumb a:hover { color: #2c2c2c; }
+
+			/* ===== LAYOUT MENÚ ===== */
+			.menu-section {
+				padding: 5rem 0;
+				background-color: #faf7f3;
+				min-height: 70vh;
+			}
+			.menu-layout {
+				display: grid;
+				grid-template-columns: 1fr 300px;
+				gap: 3rem;
+				align-items: start;
+			}
+
+			/* ===== FILTROS ===== */
+			.menu-filtros {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 2.5rem;
+				flex-wrap: wrap;
+			}
+			.menu-filtros span {
+				font-size: 1.3rem;
+				font-weight: 600;
+				color: #555;
+			}
+			.filtro-btn {
+				padding: 0.7rem 1.8rem;
+				border: 1px solid #ddd;
+				border-radius: 9999px;
+				background: #fff;
+				font-size: 1.3rem;
+				cursor: pointer;
+				font-family: inherit;
+				color: #555;
+				transition: all 0.2s;
+			}
+			.filtro-btn:hover,
+			.filtro-btn.activo {
+				background-color: var(--primary-color);
+				border-color: var(--primary-color);
+				color: #fff;
+			}
+
+			/* ===== GRILLA DE PRODUCTOS ===== */
+			.menu-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+				gap: 2rem;
+			}
+			.menu-card {
+				background: #fff;
+				border: 1px solid #ede8e0;
+				border-radius: 1.4rem;
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				transition: box-shadow 0.25s, transform 0.2s;
+			}
+			.menu-card:hover {
+				box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+				transform: translateY(-3px);
+			}
+			.menu-card-img {
+				height: 160px;
+				background-color: #f5f0ea;
+				position: relative;
+				overflow: hidden;
+			}
+			.menu-card-img img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.4s ease;
+			}
+			.menu-card:hover .menu-card-img img {
+				transform: scale(1.06);
+			}
+			.menu-badge-off {
+				position: absolute;
+				top: 1rem;
+				left: 1rem;
+				background-color: #c25b2e;
+				color: #fff;
+				font-size: 1.1rem;
+				font-weight: 700;
+				padding: 0.3rem 0.8rem;
+				border-radius: 9999px;
+			}
+			.menu-badge-new {
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				background-color: #3b6d11;
+				color: #d4edaa;
+				font-size: 1rem;
+				font-weight: 700;
+				padding: 0.3rem 0.8rem;
+				border-radius: 9999px;
+			}
+			.menu-card-body {
+				padding: 1.4rem;
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 0.7rem;
+			}
+			.menu-card-cat {
+				font-size: 1.1rem;
+				font-weight: 600;
+				color: var(--primary-color);
+				text-transform: uppercase;
+				letter-spacing: 0.5px;
+			}
+			.menu-card-name {
+				font-size: 1.5rem;
+				font-weight: 700;
+				color: #2c2c2c;
+			}
+			.menu-card-desc {
+				font-size: 1.2rem;
+				color: #888;
+				line-height: 1.5;
+			}
+			.menu-card-stars {
+				display: flex;
+				gap: 2px;
+				color: #e6a817;
+				font-size: 1.2rem;
+			}
+			.menu-card-prices {
+				display: flex;
+				align-items: baseline;
+				gap: 0.8rem;
+				margin-top: auto;
+			}
+			.menu-card-price {
+				font-size: 1.8rem;
+				font-weight: 700;
+				color: #2c2c2c;
+			}
+			.menu-card-price-old {
+				font-size: 1.2rem;
+				color: #aaa;
+				text-decoration: line-through;
+			}
+			.menu-btn-add {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.7rem;
+				background-color: #3b6d11;
+				color: #d4edaa;
+				border: none;
+				border-radius: 0.8rem;
+				padding: 1rem 0;
+				font-size: 1.3rem;
+				font-weight: 600;
+				cursor: pointer;
+				font-family: inherit;
+				width: 100%;
+				transition: background-color 0.2s, transform 0.1s;
+			}
+			.menu-btn-add:hover { background-color: #27500a; }
+			.menu-btn-add:active { transform: scale(0.97); }
+			.menu-btn-add.agregado { background-color: #639922; }
+
+			/* ===== PANEL CARRITO ===== */
+			.carrito-panel {
+				background: #fff;
+				border: 1px solid #ede8e0;
+				border-radius: 1.4rem;
+				padding: 2rem;
+				position: sticky;
+				top: 2rem;
+			}
+			.carrito-panel h3 {
+				font-size: 1.7rem;
+				font-weight: 700;
+				color: #2c2c2c;
+				margin-bottom: 1.6rem;
+				padding-bottom: 1.2rem;
+				border-bottom: 1px solid #ede8e0;
+				display: flex;
+				align-items: center;
+				gap: 0.8rem;
+			}
+			.carrito-vacio {
+				text-align: center;
+				padding: 3rem 0;
+				color: #ccc;
+				font-size: 1.3rem;
+			}
+			.carrito-vacio i {
+				font-size: 4rem;
+				display: block;
+				margin-bottom: 1rem;
+			}
+			.carrito-item {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				padding: 1rem 0;
+				border-bottom: 1px solid #f5f0ea;
+			}
+			.carrito-item:last-child { border-bottom: none; }
+			.ci-emoji {
+				width: 3.8rem;
+				height: 3.8rem;
+				flex-shrink: 0;
+				border-radius: 0.8rem;
+				overflow: hidden;
+				background: #f5f0ea;
+			}
+			.ci-emoji img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: block;
+			}
+			.ci-info { flex: 1; }
+			.ci-name { font-size: 1.3rem; font-weight: 600; color: #2c2c2c; }
+			.ci-precio { font-size: 1.2rem; color: #888; }
+			.ci-qty {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+			.ci-qty-btn {
+				background: #f5f0ea;
+				border: 1px solid #ede8e0;
+				border-radius: 0.6rem;
+				width: 2.4rem;
+				height: 2.4rem;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				font-size: 1.5rem;
+				color: #444;
+				font-family: inherit;
+				transition: background-color 0.15s;
+			}
+			.ci-qty-btn:hover { background: #e8e0d4; }
+			.ci-qty-num {
+				font-size: 1.4rem;
+				font-weight: 700;
+				min-width: 2rem;
+				text-align: center;
+				color: #2c2c2c;
+			}
+			.carrito-footer {
+				margin-top: 1.4rem;
+				padding-top: 1.4rem;
+				border-top: 1px solid #ede8e0;
+			}
+			.carrito-total {
+				display: flex;
+				justify-content: space-between;
+				font-size: 1.5rem;
+				font-weight: 700;
+				color: #2c2c2c;
+				margin-bottom: 1.4rem;
+			}
+			.btn-pagar {
+				width: 100%;
+				background-color: #c25b2e;
+				color: #fff;
+				border: none;
+				border-radius: 0.8rem;
+				padding: 1.2rem;
+				font-size: 1.4rem;
+				font-weight: 700;
+				font-family: inherit;
+				cursor: pointer;
+				transition: background-color 0.2s;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.8rem;
+			}
+			.btn-pagar:hover { background-color: #993c1d; }
+			.btn-ver-carrito {
+				display: block;
+				text-align: center;
+				margin-top: 1rem;
+				font-size: 1.3rem;
+				color: #c25b2e;
+				text-decoration: none;
+				font-weight: 500;
+			}
+			.btn-ver-carrito:hover { text-decoration: underline; }
+
+			/* ===== TOAST ===== */
+			.menu-toast {
+				position: fixed;
+				bottom: 3rem;
+				right: 3rem;
+				background-color: #27500a;
+				color: #c0dd97;
+				padding: 1.2rem 2rem;
+				border-radius: 1rem;
+				font-size: 1.4rem;
+				font-weight: 500;
+				z-index: 9999;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				opacity: 0;
+				transform: translateY(1rem);
+				transition: all 0.3s ease;
+				pointer-events: none;
+			}
+			.menu-toast.show { opacity: 1; transform: translateY(0); }
+
+			/* ===== RESPONSIVE ===== */
+			@media (max-width: 960px) {
+				.menu-layout { grid-template-columns: 1fr; }
+				.carrito-panel { position: static; }
+			}
+		</style>
+	</head>
+	<body>
+		<!-- HEADER -->
+		<header>
+			<div class="container-hero">
+				<div class="container hero">
+					<div class="customer-support">
+						<i class="fa-solid fa-headset"></i>
+						<div class="content-customer-support">
+							<span class="text">Soporte al cliente</span>
+							<span class="number">123-456-7890</span>
+						</div>
+					</div>
+					<div class="container-logo">
+						<i class="fa-solid fa-mug-hot"></i>
+						<h1 class="logo"><a href="index.html">Altiva Cafe</a></h1>
+					</div>
+					<div class="container-user" onclick="window.location.href='carrito.html'" style="cursor:pointer;">
+						<i class="fa-solid fa-user"></i>
+						<i class="fa-solid fa-basket-shopping"></i>
+						<div class="content-shopping-cart">
+							<span class="text">Carrito</span>
+							<span class="number" id="contador-header">(0)</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-navbar">
+				<nav class="navbar container">
+					<i class="fa-solid fa-bars"></i>
+					<ul class="menu">
+						<li><a href="index.html">Inicio</a></li>
+						<li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+						<li><a href="blog.html">Blog</a></li>
+						<li><a href="menu.html" class="active">Menú</a></li>
+						<li><a href="contacto.html">Contacto</a></li>
+						<li><a href="carrito.html">Carrito</a></li>
+					</ul>
+					<form class="search-form">
+						<input type="search" placeholder="Buscar..." />
+						<button class="btn-search" type="button">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</form>
+				</nav>
+			</div>
+		</header>
+
+		<!-- PAGE TITLE -->
+		<div class="page-title">
+			<h2>Nuestro Menú</h2>
+			<div class="breadcrumb">
+				<a href="index.html">Inicio</a>
+				<span>/</span>
+				<span>Menú</span>
+			</div>
+		</div>
+
+		<!-- SECCIÓN PRINCIPAL -->
+		<section class="menu-section">
+			<div class="container">
+				<div class="menu-layout">
+
+					<!-- COLUMNA IZQUIERDA: Filtros + Grilla -->
+					<div>
+						<div class="menu-filtros">
+							<span>Filtrar:</span>
+							<button class="filtro-btn activo" data-cat="todos">Todos</button>
+							<button class="filtro-btn" data-cat="caliente">Calientes</button>
+							<button class="filtro-btn" data-cat="frio">Fríos</button>
+							<button class="filtro-btn" data-cat="especial">Especiales</button>
+						</div>
+
+						<div class="menu-grid" id="menu-grid">
+							<!-- Se genera con JS -->
+						</div>
+					</div>
+
+					<!-- COLUMNA DERECHA: Panel del carrito -->
+					<div class="carrito-panel">
+						<h3><i class="fa-solid fa-basket-shopping"></i> Tu pedido</h3>
+						<div id="carrito-body">
+							<div class="carrito-vacio">
+								<i class="fa-solid fa-mug-hot"></i>
+								El carrito está vacío
+							</div>
+						</div>
+						<div class="carrito-footer" id="carrito-footer" style="display:none;">
+							<div class="carrito-total">
+								<span>Total</span>
+								<span id="total-valor">$0.00</span>
+							</div>
+							<button class="btn-pagar" onclick="window.location.href='carrito.html'">
+								<i class="fa-solid fa-lock"></i>
+								Proceder al pago
+							</button>
+							<a href="carrito.html" class="btn-ver-carrito">Ver carrito completo →</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<footer class="footer">
+			<div class="container container-footer">
+				<div class="menu-footer">
+					<div class="contact-info">
+						<p class="title-footer">Información de Contacto</p>
+						<ul>
+							<li>Dirección:</li>
+							<li>Teléfono: 123-456-7890</li>
+							<li>Fax: 55555300</li>
+							<li>Email: altivacafe@support.com</li>
+						</ul>
+						<div class="social-icons">
+							<span class="facebook"><i class="fa-brands fa-facebook-f"></i></span>
+							<span class="twitter"><i class="fa-brands fa-twitter"></i></span>
+							<span class="youtube"><i class="fa-brands fa-youtube"></i></span>
+							<span class="pinterest"><i class="fa-brands fa-pinterest-p"></i></span>
+							<span class="instagram"><i class="fa-brands fa-instagram"></i></span>
+						</div>
+					</div>
+					<div class="information">
+						<p class="title-footer">Información</p>
+						<ul>
+							<li><a href="sobre-nosotros.html">Acerca de Nosotros</a></li>
+							<li><a href="contacto.html">Información Delivery</a></li>
+							<li><a href="#">Políticas de Privacidad</a></li>
+							<li><a href="#">Términos y condiciones</a></li>
+							<li><a href="contacto.html">Contáctanos</a></li>
+						</ul>
+					</div>
+					<div class="my-account">
+						<p class="title-footer">Mi cuenta</p>
+						<ul>
+							<li><a href="#">Mi cuenta</a></li>
+							<li><a href="#">Historial de ordenes</a></li>
+							<li><a href="#">Lista de deseos</a></li>
+							<li><a href="blog.html">Boletín</a></li>
+							<li><a href="#">Reembolsos</a></li>
+						</ul>
+					</div>
+					<div class="newsletter">
+						<p class="title-footer">Boletín informativo</p>
+						<div class="content">
+							<p>Suscríbete a nuestros boletines ahora y mantente al día con nuevas colecciones y ofertas exclusivas.</p>
+							<input type="email" placeholder="Ingresa el correo aquí...">
+							<button>Suscríbete</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Toast -->
+		<div class="menu-toast" id="menu-toast">
+			<i class="fa-solid fa-circle-check"></i>
+			<span id="menu-toast-msg"></span>
+		</div>
+
+		<script src="carrito.js"></script>
+		<script>
+	const menuProductos = [
+		{
+			id: 'cafe-irish',
+			nombre: 'Cafe Irish',
+			img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&q=80',
+			precio: 12900,
+			original: 15900,
+			desc: '-19%',
+			estrellas: 4,
+			cat: 'especial',
+			nuevo: false,
+			descripcion: 'Whisky irlandés con espuma de crema suave.'
+		},
+		{
+			id: 'cafe-ingles',
+			nombre: 'Cafe Ingles',
+			img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&q=80',
+			precio: 9900,
+			original: 13500,
+			desc: '-27%',
+			estrellas: 3,
+			cat: 'caliente',
+			nuevo: false,
+			descripcion: 'Mezcla oscura con aroma a especias británicas.'
+		},
+		{
+			id: 'cafe-australiano',
+			nombre: 'Cafe Australiano',
+			img: 'https://images.unsplash.com/photo-1534040385115-33dcb3acba5b?w=400&q=80',
+			precio: 8500,
+			original: null,
+			desc: null,
+			estrellas: 5,
+			cat: 'caliente',
+			nuevo: true,
+			descripcion: 'Flat white suave y equilibrado, estilo Melbourne.'
+		},
+		{
+			id: 'cafe-helado',
+			nombre: 'Cafe Helado',
+			img: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80',
+			precio: 10500,
+			original: null,
+			desc: null,
+			estrellas: 4,
+			cat: 'frio',
+			nuevo: false,
+			descripcion: 'Espresso sobre hielo con leche fría cremosa.'
+		},
+		{
+			id: 'cafe-viena',
+			nombre: 'Cafe Viena',
+			img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80',
+			precio: 11500,
+			original: 15900,
+			desc: '-28%',
+			estrellas: 5,
+			cat: 'especial',
+			nuevo: false,
+			descripcion: 'Doble espresso con crema batida vienesa.'
+		},
+		{
+			id: 'cafe-liqueurs',
+			nombre: 'Cafe Liqueurs',
+			img: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=80',
+			precio: 16900,
+			original: null,
+			desc: null,
+			estrellas: 4,
+			cat: 'especial',
+			nuevo: true,
+			descripcion: 'Combinación de licores con café de temporada.'
+		}
+	];
+
+	let categoriaActiva = 'todos';
+
+	function formatCOP(valor) {
+		return '$' + valor.toLocaleString('es-CO');
+	}
+
+	function estrellasSVG(n) {
+		let s = '';
+		for (let i = 0; i < 5; i++) {
+			s += i < n ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+		}
+		return s;
+	}
+
+	function renderGrid() {
+		const grid = document.getElementById('menu-grid');
+		const filtrados = categoriaActiva === 'todos'
+			? menuProductos
+			: menuProductos.filter(p => p.cat === categoriaActiva);
+
+		grid.innerHTML = filtrados.map(p => `
+			<div class="menu-card">
+				<div class="menu-card-img">
+					<img src="${p.img}" alt="${p.nombre}" loading="lazy" />
+					${p.desc ? '<span class="menu-badge-off">' + p.desc + '</span>' : ''}
+					${p.nuevo ? '<span class="menu-badge-new">Nuevo</span>' : ''}
+				</div>
+				<div class="menu-card-body">
+					<span class="menu-card-cat">${p.cat}</span>
+					<div class="menu-card-name">${p.nombre}</div>
+					<div class="menu-card-desc">${p.descripcion}</div>
+					<div class="menu-card-stars">${estrellasSVG(p.estrellas)}</div>
+					<div class="menu-card-prices">
+						<span class="menu-card-price">${formatCOP(p.precio)}</span>
+						${p.original ? '<span class="menu-card-price-old">' + formatCOP(p.original) + '</span>' : ''}
+					</div>
+					<button class="menu-btn-add" id="mbtn-${p.id}" onclick="menuAgregar('${p.id}')">
+						<i class="fa-solid fa-plus"></i> Agregar al pedido
+					</button>
+				</div>
+			</div>
+		`).join('');
+	}
+
+	function menuAgregar(id) {
+		if (typeof agregarAlCarrito === 'function') agregarAlCarrito(id);
+		renderPanel();
+		flashBtn(id);
+	}
+
+	function flashBtn(id) {
+		const btn = document.getElementById('mbtn-' + id);
+		if (!btn) return;
+		btn.classList.add('agregado');
+		btn.innerHTML = '<i class="fa-solid fa-check"></i> Añadido';
+		setTimeout(() => {
+			btn.classList.remove('agregado');
+			btn.innerHTML = '<i class="fa-solid fa-plus"></i> Agregar al pedido';
+		}, 1400);
+	}
+
+	function menuCambiarQty(id, delta) {
+		if (typeof cambiarCantidad === 'function') cambiarCantidad(id, delta);
+		renderPanel();
+	}
+
+	function renderPanel() {
+		const body   = document.getElementById('carrito-body');
+		const footer = document.getElementById('carrito-footer');
+		const total  = document.getElementById('total-valor');
+		if (!body) return;
+
+		const carrito = typeof obtenerCarrito === 'function' ? obtenerCarrito() : [];
+
+		if (carrito.length === 0) {
+			body.innerHTML = '<div class="carrito-vacio"><i class="fa-solid fa-mug-hot"></i>El carrito está vacío</div>';
+			footer.style.display = 'none';
+			return;
+		}
+
+		body.innerHTML = carrito.map(item => {
+			const prod = menuProductos.find(p => p.id === item.id);
+			const imgSrc = prod ? prod.img : '';
+			return `
+				<div class="carrito-item">
+					<span class="ci-emoji">
+						<img src="${imgSrc}" alt="${item.nombre}" />
+					</span>
+					<div class="ci-info">
+						<div class="ci-name">${item.nombre}</div>
+						<div class="ci-precio">${formatCOP(item.precio)} c/u</div>
+					</div>
+					<div class="ci-qty">
+						<button class="ci-qty-btn" onclick="menuCambiarQty('${item.id}', -1)">&#8722;</button>
+						<span class="ci-qty-num">${item.cantidad}</span>
+						<button class="ci-qty-btn" onclick="menuCambiarQty('${item.id}', 1)">+</button>
+					</div>
+				</div>
+			`;
+		}).join('');
+
+		const t = carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+		total.textContent = formatCOP(t);
+		footer.style.display = 'block';
+	}
+
+	/* Filtros */
+	document.querySelectorAll('.filtro-btn').forEach(btn => {
+		btn.addEventListener('click', () => {
+			document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+			btn.classList.add('activo');
+			categoriaActiva = btn.dataset.cat;
+			renderGrid();
+		});
+	});
+
+	document.addEventListener('DOMContentLoaded', () => {
+		renderGrid();
+		renderPanel();
+	});
+</script>
+<script src="whatsapp-chat.js"></script>
+	</body>
+</html>
