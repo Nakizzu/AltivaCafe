@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Altiva Cafe</title>
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="whatsapp-chat.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style>
+			.cafe-del-dia { padding: 7rem 0; background: linear-gradient(135deg, #2c1a0e 0%, #5a2d0c 100%); color: #fff; overflow: hidden; }
+			.cafe-del-dia .container { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+			.cdd-texto h2 { font-size: 1.3rem; font-weight: 600; color: #e6a817; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.2rem; }
+			.cdd-texto h1 { font-size: 4.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; color: #fff; }
+			.cdd-texto p { font-size: 1.5rem; color: #d4bfa8; line-height: 1.8; margin-bottom: 2.5rem; }
+			.cdd-tags { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+			.cdd-tag { background-color: rgba(255,255,255,0.1); color: #f0d9c0; border: 1px solid rgba(255,255,255,0.2); border-radius: 9999px; padding: 0.5rem 1.4rem; font-size: 1.2rem; }
+			.cdd-btn { display: inline-flex; align-items: center; gap: 1rem; background-color: #e6a817; color: #2c1a0e; text-decoration: none; padding: 1.3rem 3rem; border-radius: 9999px; font-size: 1.5rem; font-weight: 700; transition: background-color 0.2s, transform 0.2s; }
+			.cdd-btn:hover { background-color: #f0c040; transform: translateY(-2px); }
+			.cdd-visual { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+			.cdd-emoji-grande { font-size: 12rem; line-height: 1; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4)); animation: flotando 3s ease-in-out infinite; }
+			@keyframes flotando { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+			.cdd-stats { display: flex; gap: 2rem; }
+			.cdd-stat { text-align: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 1rem; padding: 1.4rem 2rem; }
+			.cdd-stat .numero { display: block; font-size: 2.4rem; font-weight: 700; color: #e6a817; }
+			.cdd-stat .etiqueta { font-size: 1.2rem; color: #d4bfa8; }
+
+			/* ===== CÓMO FUNCIONA ===== */
+			.como-funciona { padding: 7rem 0; background-color: #fff; }
+			.como-funciona .heading-1 { text-align: center; margin-bottom: 0.8rem; }
+			.como-funciona .subtitulo { text-align: center; font-size: 1.5rem; color: #888; margin-bottom: 5rem; }
+			.pasos-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2.5rem;
+				max-width: 900px;
+				margin: 0 auto;
+			}
+			.paso-card { text-align: center; padding: 3.5rem 2.5rem 3rem; border-radius: 1.4rem; border: 1px solid #f0ece6; background: #faf7f3; position: relative; transition: box-shadow 0.2s, transform 0.2s; }
+			.paso-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.07); transform: translateY(-4px); }
+			.paso-numero { position: absolute; top: -1.4rem; left: 50%; transform: translateX(-50%); background-color: var(--primary-color); color: #fff; width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; }
+			.paso-icono { font-size: 4rem; margin-bottom: 1.5rem; display: block; }
+			.paso-card h3 { font-size: 1.7rem; font-weight: 700; color: #2c2c2c; margin-bottom: 0.8rem; }
+			.paso-card p { font-size: 1.3rem; color: #888; line-height: 1.6; }
+
+			.testimonios { padding: 7rem 0; background-color: #faf7f3; }
+			.testimonios .heading-1 { text-align: center; margin-bottom: 4rem; }
+			.testimonios-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+			.testimonio-card { background: #fff; border-radius: 1.4rem; padding: 2.5rem; border: 1px solid #ede8e0; transition: box-shadow 0.2s; }
+			.testimonio-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+			.testimonio-stars { color: #e6a817; font-size: 1.4rem; margin-bottom: 1.5rem; }
+			.testimonio-texto { font-size: 1.4rem; color: #555; line-height: 1.7; margin-bottom: 2rem; font-style: italic; }
+			.testimonio-autor { display: flex; align-items: center; gap: 1.2rem; }
+			.autor-avatar { width: 4.5rem; height: 4.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: #fff; }
+			.avatar-a { background-color: #c25b2e; }
+			.avatar-b { background-color: #3b6d11; }
+			.avatar-c { background-color: #1a5a8a; }
+			.autor-info .nombre { font-size: 1.4rem; font-weight: 700; color: #2c2c2c; }
+			.autor-info .ciudad { font-size: 1.2rem; color: #aaa; }
+
+			.banner-promo { padding: 6rem 0; background-color: #e6f2d8; text-align: center; }
+			.banner-promo .emoji-grande { font-size: 5rem; display: block; margin-bottom: 1.5rem; }
+			.banner-promo h2 { font-size: 3.5rem; font-weight: 700; color: #2c2c2c; margin-bottom: 1rem; }
+			.banner-promo p { font-size: 1.6rem; color: #555; margin-bottom: 2.5rem; }
+			.banner-promo a { display: inline-flex; align-items: center; gap: 1rem; background-color: #3b6d11; color: #fff; text-decoration: none; padding: 1.3rem 3.5rem; border-radius: 9999px; font-size: 1.5rem; font-weight: 700; transition: background-color 0.2s, transform 0.2s; }
+			.banner-promo a:hover { background-color: #27500a; transform: translateY(-2px); }
+
+			@media (max-width: 900px) {
+				.cafe-del-dia .container { grid-template-columns: 1fr; text-align: center; }
+				.cdd-tags { justify-content: center; }
+				.cdd-visual { display: none; }
+				.pasos-grid { grid-template-columns: 1fr; max-width: 420px; }
+				.testimonios-grid { grid-template-columns: 1fr; }
+			}
+			@media (max-width: 600px) {
+				.pasos-grid { grid-template-columns: 1fr; }
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="container-hero">
+				<div class="container hero">
+					<div class="customer-support">
+						<i class="fa-solid fa-headset"></i>
+						<div class="content-customer-support">
+							<span class="text">Soporte al cliente</span>
+							<span class="number">123-456-7890</span>
+						</div>
+					</div>
+					<div class="container-logo">
+						<i class="fa-solid fa-mug-hot"></i>
+						<h1 class="logo"><a href="index.html">Altiva Cafe</a></h1>
+					</div>
+					<div class="container-user" onclick="window.location.href='carrito.html'" style="cursor:pointer;">
+						<i class="fa-solid fa-user"></i>
+						<i class="fa-solid fa-basket-shopping"></i>
+						<div class="content-shopping-cart">
+							<span class="text">Carrito</span>
+							<span class="number" id="contador-header">(0)</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-navbar">
+				<nav class="navbar container">
+					<i class="fa-solid fa-bars"></i>
+					<ul class="menu">
+						<li><a href="index.html">Inicio</a></li>
+						<li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+						<li><a href="blog.html">Blog</a></li>
+						<li><a href="menu.html">Men&#250;</a></li>
+						<li><a href="contacto.html">Contacto</a></li>
+						<li><a href="carrito.html">Carrito</a></li>
+					</ul>
+					<form class="search-form">
+						<input type="search" placeholder="Buscar..." />
+						<button class="btn-search" type="button">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</form>
+				</nav>
+			</div>
+		</header>
+
+		<section class="banner">
+			<div class="content-banner">
+				<p>Caf&#233; Delicioso</p>
+				<h2>100% Natural <br />Caf&#233; Fresco</h2>
+				<a href="menu.html">Ver Men&#250;</a>
+			</div>
+		</section>
+
+		<main class="main-content">
+			<section class="container container-features">
+				<div class="card-feature">
+					<i class="fa-solid fa-motorcycle"></i>
+					<div class="feature-content"><span>Env&#237;o gratuito</span><p>En pedido superior a 50.000</p></div>
+				</div>
+				<div class="card-feature">
+					<i class="fa-solid fa-wallet"></i>
+					<div class="feature-content"><span>Contrareembolso</span><p>100% garant&#237;a de devoluci&#243;n de dinero</p></div>
+				</div>
+				<div class="card-feature">
+					<i class="fa-solid fa-gift"></i>
+					<div class="feature-content"><span>Tarjeta regalo especial</span><p>Ofrece bonos especiales con regalo</p></div>
+				</div>
+				<div class="card-feature">
+					<i class="fa-solid fa-headset"></i>
+					<div class="feature-content"><span>Servicio al cliente 24/7</span><p>LL&#225;menos 24/7 al 123-456-7890</p></div>
+				</div>
+			</section>
+
+			<section class="container top-categories">
+				<h1 class="heading-1">Mejores Categor&#237;as</h1>
+				<div class="container-categories">
+					<div class="card-category category-moca"><p>Caf&#233; moca</p><span>Ver m&#225;s</span></div>
+					<div class="card-category category-expreso"><p>Expreso Americano</p><span>Ver m&#225;s</span></div>
+					<div class="card-category category-capuchino"><p>Capuchino</p><span>Ver m&#225;s</span></div>
+				</div>
+			</section>
+
+			<section class="cafe-del-dia">
+				<div class="container">
+					<div class="cdd-texto">
+						<h2>&#9733; Destacado de hoy</h2>
+						<h1>Cafe Viena<br />con Crema Batida</h1>
+						<p>Nuestro doble espresso vien&#233;s cubierto con una generosa capa de crema batida artesanal. Perfecto para los que buscan algo distinto.</p>
+						<div class="cdd-tags">
+							<span class="cdd-tag"><i class="fa-solid fa-fire"></i> Caliente</span>
+							<span class="cdd-tag"><i class="fa-solid fa-leaf"></i> 100% Ar&#225;bica</span>
+							<span class="cdd-tag"><i class="fa-solid fa-tag"></i> -30% hoy</span>
+						</div>
+						<a href="menu.html" class="cdd-btn">
+							<i class="fa-solid fa-basket-shopping"></i>
+							Pedir ahora &#8212; $12.500
+						</a>
+					</div>
+					<div class="cdd-visual">
+						<div class="cdd-emoji-grande">&#9749;</div>
+						<div class="cdd-stats">
+							<div class="cdd-stat"><span class="numero">4.9</span><span class="etiqueta">Rating</span></div>
+							<div class="cdd-stat"><span class="numero">2.4k</span><span class="etiqueta">Pedidos</span></div>
+							<div class="cdd-stat"><span class="numero">-30%</span><span class="etiqueta">Descuento</span></div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="como-funciona">
+				<div class="container">
+					<h1 class="heading-1">Tu caf&#233; en 3 pasos</h1>
+					<p class="subtitulo">Pedirlo nunca fue tan f&#225;cil</p>
+					<div class="pasos-grid">
+						<div class="paso-card">
+							<span class="paso-numero">1</span>
+							<span class="paso-icono">&#128269;</span>
+							<h3>Explora el men&#250;</h3>
+							<p>Navega nuestra selecci&#243;n de caf&#233;s artesanales, calientes, fr&#237;os y especiales.</p>
+						</div>
+						<div class="paso-card">
+							<span class="paso-numero">2</span>
+							<span class="paso-icono">&#9749;</span>
+							<h3>Elige tu favorito</h3>
+							<p>Agrega al carrito los que m&#225;s te llamen la atenci&#243;n con un solo clic.</p>
+						</div>
+						<div class="paso-card">
+							<span class="paso-numero">3</span>
+							<span class="paso-icono">&#128179;</span>
+							<h3>Paga de forma segura</h3>
+							<p>Procesamos tu pago con los m&#233;todos m&#225;s seguros del mercado.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="gallery">
+				<img src="img/gallery1.jpg" alt="Gallery Img1" class="gallery-img-1"
+				/><img src="img/gallery2.jpg" alt="Gallery Img2" class="gallery-img-2"
+				/><img src="img/gallery3.jpg" alt="Gallery Img3" class="gallery-img-3"
+				/><img src="img/gallery4.jpg" alt="Gallery Img4" class="gallery-img-4"
+				/><img src="img/gallery5.jpg" alt="Gallery Img5" class="gallery-img-5" />
+			</section>
+
+			<section class="testimonios">
+				<div class="container">
+					<h1 class="heading-1">Lo que dicen nuestros clientes</h1>
+					<div class="testimonios-grid">
+						<div class="testimonio-card">
+							<div class="testimonio-stars">
+								<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+							</div>
+							<p class="testimonio-texto">"El Cafe Viena es lo mejor que he probado en mucho tiempo. La crema batida lo hace completamente diferente a cualquier otro."</p>
+							<div class="testimonio-autor">
+								<div class="autor-avatar avatar-a">L</div>
+								<div class="autor-info"><div class="nombre">Laura M.</div><div class="ciudad">Bogot&#225;, Colombia</div></div>
+							</div>
+						</div>
+						<div class="testimonio-card">
+							<div class="testimonio-stars">
+								<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+							</div>
+							<p class="testimonio-texto">"Ped&#237; el Cafe Helado un martes y lleg&#243; en menos de 40 minutos. Incre&#237;blemente fresco y cremoso. Ya lo ped&#237; tres veces esta semana."</p>
+							<div class="testimonio-autor">
+								<div class="autor-avatar avatar-b">D</div>
+								<div class="autor-info"><div class="nombre">Diego R.</div><div class="ciudad">Medell&#237;n, Colombia</div></div>
+							</div>
+						</div>
+						<div class="testimonio-card">
+							<div class="testimonio-stars">
+								<i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+							</div>
+							<p class="testimonio-texto">"El sistema del carrito es muy intuitivo y el men&#250; tiene buena variedad. El Cafe Australiano se convirti&#243; en mi desayuno de lunes a viernes."</p>
+							<div class="testimonio-autor">
+								<div class="autor-avatar avatar-c">S</div>
+								<div class="autor-info"><div class="nombre">Sara V.</div><div class="ciudad">Cali, Colombia</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="banner-promo">
+				<div class="container">
+					<span class="emoji-grande">&#9749;</span>
+					<h2>&#191;Listo para tu pr&#243;ximo caf&#233;?</h2>
+					<p>Descubre toda nuestra selecci&#243;n de caf&#233;s artesanales con descuentos exclusivos de hoy.</p>
+					<a href="menu.html">
+						<i class="fa-solid fa-mug-hot"></i>
+						Explorar el Men&#250; Completo
+					</a>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer">
+			<div class="container container-footer">
+				<div class="menu-footer">
+					<div class="contact-info">
+						<p class="title-footer">Informaci&#243;n de Contacto</p>
+						<ul>
+							<li>Direcci&#243;n:</li>
+							<li>Tel&#233;fono: 123-456-7890</li>
+							<li>Fax: 0000000</li>
+							<li>Email: AltivaCafe@support.com</li>
+						</ul>
+						<div class="social-icons">
+							<span class="facebook"><i class="fa-brands fa-facebook-f"></i></span>
+							<span class="twitter"><i class="fa-brands fa-twitter"></i></span>
+							<span class="youtube"><i class="fa-brands fa-youtube"></i></span>
+							<span class="pinterest"><i class="fa-brands fa-pinterest-p"></i></span>
+							<span class="instagram"><i class="fa-brands fa-instagram"></i></span>
+						</div>
+					</div>
+					<div class="information">
+						<p class="title-footer">Informaci&#243;n</p>
+						<ul>
+							<li><a href="sobre-nosotros.html">Acerca de Nosotros</a></li>
+							<li><a href="contacto.html">Informaci&#243;n Delivery</a></li>
+							<li><a href="#">Pol&#237;ticas de Privacidad</a></li>
+							<li><a href="#">T&#233;rminos y condiciones</a></li>
+							<li><a href="contacto.html">Cont&#225;ctanos</a></li>
+						</ul>
+					</div>
+					<div class="my-account">
+						<p class="title-footer">Mi cuenta</p>
+						<ul>
+							<li><a href="#">Mi cuenta</a></li>
+							<li><a href="#">Historial de ordenes</a></li>
+							<li><a href="#">Lista de deseos</a></li>
+							<li><a href="blog.html">Bolet&#237;n</a></li>
+							<li><a href="#">Reembolsos</a></li>
+						</ul>
+					</div>
+					<div class="newsletter">
+						<p class="title-footer">Bolet&#237;n informativo</p>
+						<div class="content">
+							<p>Suscr&#237;bete a nuestros boletines ahora y mant&#233;nte al d&#237;a con nuevas colecciones y ofertas exclusivas.</p>
+							<input type="email" placeholder="Ingresa el correo aqu&#237;...">
+							<button>Suscr&#237;bete</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script src="carrito.js"></script>
+<script src="whatsapp-chat.js"></script>
+	</body>
+</html>
