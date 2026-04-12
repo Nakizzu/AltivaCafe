@@ -15,7 +15,7 @@
 		phone:   '573214407131',                          // Tu número con código de país (Colombia = 57)
 		nombre:  'Altiva Cafe ☕',                           // Nombre que aparece en el chat
 		cargo:   'Atención al cliente',                   // Subtítulo del header
-		mensaje: '¡Hola! Quiero hacer un pedido \uf0f4',     // Texto pre-escrito en WhatsApp
+		mensaje: '¡Hola! Quiero hacer un pedido',     // Texto pre-escrito en WhatsApp
 		saludo: [                                          // Mensajes del "bot" (puedes añadir más)
 			'¡Hola! 👋 Bienvenido a *Altiva Cafe*.',
 			'Estamos aquí para ayudarte con tu pedido. ¿En qué podemos servirte hoy?'
